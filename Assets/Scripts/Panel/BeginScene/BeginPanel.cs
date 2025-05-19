@@ -15,7 +15,8 @@ public class BeginPanel : BasePanel
         });
         settingsButton.onClick.AddListener(()=>
         {
-            
+            PanelManager.Instance.HidePanel<BeginPanel>();
+            PanelManager.Instance.ShowPanel<SettingsPanel>();
         });
         aboutButton.onClick.AddListener(()=>
         {
