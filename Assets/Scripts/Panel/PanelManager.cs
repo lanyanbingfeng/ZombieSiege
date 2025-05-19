@@ -21,8 +21,7 @@ public class PanelManager
         string panelName = typeof(T).Name;
         if (dicPanel.ContainsKey(panelName)) return dicPanel[panelName] as T;
         
-        GameObject panelObj = Resources.Load<GameObject>($"Panels/{panelName}");
-        panelObj.transform.SetParent(canvas, false);
+        GameObject panelObj = GameObject.Instantiate(Resources.Load<GameObject>("Panels/" + panelName), canvas, false);
         T panel = panelObj.GetComponent<T>();
         panel.Show();
         dicPanel.Add(panelName, panel);
@@ -45,5 +44,15 @@ public class PanelManager
             GameObject.Destroy(dicPanel[panelName].gameObject);
             dicPanel.Remove(panelName);
         }
+    }
+
+    public T GetPanel<T>() where T : BasePanel
+    {
+        string panelName = typeof(T).Name;
+        if (dicPanel.ContainsKey(panelName))
+        {
+            return dicPanel[panelName] as T;
+        }
+        return null;
     }
 }

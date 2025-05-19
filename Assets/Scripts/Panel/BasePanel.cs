@@ -11,6 +11,7 @@ public abstract class BasePanel : MonoBehaviour
     protected virtual void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
     }
 
     protected virtual void Start()
