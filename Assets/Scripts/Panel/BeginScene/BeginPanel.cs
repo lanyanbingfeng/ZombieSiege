@@ -11,11 +11,15 @@ public class BeginPanel : BasePanel
     {
         startButton.onClick.AddListener(()=>
         {
-            
+            PanelManager.Instance.HidePanel<BeginPanel>();
+            GameDataMgr.Instance.UpdateChooseHero();
+            Camera.main.GetComponent<CameraAnimator>().TurnLeftOrRight(true, () =>
+            {
+                PanelManager.Instance.ShowPanel<ChooseHeroPanel>();
+            });
         });
         settingsButton.onClick.AddListener(()=>
         {
-            PanelManager.Instance.HidePanel<BeginPanel>();
             PanelManager.Instance.ShowPanel<SettingsPanel>();
         });
         aboutButton.onClick.AddListener(()=>

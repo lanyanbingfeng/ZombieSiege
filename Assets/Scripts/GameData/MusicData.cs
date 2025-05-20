@@ -1,4 +1,4 @@
-
+[System.Serializable]
 public class MusicData
 {
     public bool isMusicOpen = true;

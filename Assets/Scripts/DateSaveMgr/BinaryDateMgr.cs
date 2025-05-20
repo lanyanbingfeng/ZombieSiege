@@ -25,7 +25,7 @@ public class BinaryDateMgr
     /// </summary>
     public void LoadAllData()
     {
-        
+        LoadExcelData<HeroDataContainer,HeroData>();
     }
     
     /// <summary>
@@ -105,7 +105,7 @@ public class BinaryDateMgr
     /// <summary>
     /// 获得 指定表数据
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T" 容器类类名></typeparam>
     /// <returns></returns>
     public T GetExcelDataTable<T>() where T : class
     {

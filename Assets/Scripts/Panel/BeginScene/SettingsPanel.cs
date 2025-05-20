@@ -16,10 +16,11 @@ public class SettingsPanel : BasePanel
         soundToggle.isOn = data.isSoundOpen;
         musicSlider.value = data.MusicVolume;
         soundSlider.value = data.SoundVolume;
-        musicText.text = musicSlider.value * 100 + "%";
-        soundText.text = soundSlider.value * 100 + "%";
+        musicText.text = (musicSlider.value * 100).ToString("0.0") + "%";
+        soundText.text = (soundSlider.value * 100).ToString("0.0") + "%";
         quitButton.onClick.AddListener(() =>
         {
+            GameDataMgr.Instance.SaveMusicData();
             PanelManager.Instance.HidePanel<SettingsPanel>();
             PanelManager.Instance.ShowPanel<BeginPanel>();
         });
