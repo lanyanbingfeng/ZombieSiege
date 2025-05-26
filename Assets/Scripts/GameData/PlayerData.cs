@@ -1,8 +1,8 @@
 
 using System.Collections.Generic;
-
+[System.Serializable]
 public class PlayerData
 {
-    public int HaveMoney;
-    public List<int> LockHero = new List<int>(){1};
+    public int HaveMoney = 10000;
+    public List<int> HaveHero = new(){1};
 }

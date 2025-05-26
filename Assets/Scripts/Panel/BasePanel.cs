@@ -41,7 +41,6 @@ public abstract class BasePanel : MonoBehaviour
             canvasGroup.alpha += alphaSpeed * Time.deltaTime;
             if (canvasGroup.alpha >= 1) canvasGroup.alpha = 1;
         }
-
         if (!isShowing && canvasGroup.alpha != 0)
         {
             canvasGroup.alpha -= alphaSpeed * Time.deltaTime;

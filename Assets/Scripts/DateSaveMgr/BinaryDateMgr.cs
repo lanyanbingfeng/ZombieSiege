@@ -26,6 +26,7 @@ public class BinaryDateMgr
     public void LoadAllData()
     {
         LoadExcelData<HeroDataContainer,HeroData>();
+        LoadExcelData<DifficultyDataContainer,DifficultyData>();
     }
     
     /// <summary>

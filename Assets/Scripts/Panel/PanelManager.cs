@@ -7,7 +7,7 @@ public class PanelManager
     private Dictionary<string,BasePanel> dicPanel = new();
     private Transform canvas;
     
-    private static PanelManager instance = new PanelManager();
+    private static PanelManager instance = new ();
     public static PanelManager Instance => instance;
     private PanelManager()
     {
@@ -41,8 +41,11 @@ public class PanelManager
                     dicPanel.Remove(panelName);
                 });
             }
-            GameObject.Destroy(dicPanel[panelName].gameObject);
-            dicPanel.Remove(panelName);
+            else
+            {
+                GameObject.Destroy(dicPanel[panelName].gameObject);
+                dicPanel.Remove(panelName);
+            }
         }
     }
 
