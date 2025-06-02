@@ -8,8 +8,9 @@ public class GameDataMgr
     
     //游戏基本数据
     public MusicData currentGameMusicData;
-    public PlayerData currentPlayerData;
-    public HeroDataContainer allHeroData;
+    public PlayerData currentPlayerData; //拥有多少金币和英雄
+    public HeroDataContainer allHeroData; //所有英雄数据
+    public ZombieDataContainer allZombieData; //所有僵尸数据
     public DifficultyDataContainer difficultyData;
     
     //选择面板的数据
@@ -18,16 +19,19 @@ public class GameDataMgr
     public GameObject CurrentChooseHeroObj;
     public int ChooseHeroIndex = 1;
     
-    //游戏场景玩家状态
-    public int MaxHp = 100; //最大生命值
+    //游戏场景数据
+    public int playerMaxHp = 100; //最大生命值
+    public int MainTowerHp = 100; //主塔最大生命值
     
     private static GameDataMgr instance = new();
     public static GameDataMgr Instance => instance;
     
     private GameDataMgr()
     {
-        ChooseHeroPos = GameObject.Find("HeroPos").transform;
-        
+        if (SceneManager.GetActiveScene().name == "BeginScene")
+        {
+            ChooseHeroPos = GameObject.Find("HeroPos").transform;
+        }
         currentGameMusicData = BinaryDateMgr.Instance.LoadDate<MusicData>("MusciData");
         if (currentGameMusicData == null) currentGameMusicData = new MusicData();
         currentPlayerData = BinaryDateMgr.Instance.LoadDate<PlayerData>("PlayerData");
@@ -36,6 +40,7 @@ public class GameDataMgr
         //读取所有英雄的数据
         allHeroData = BinaryDateMgr.Instance.GetExcelDataTable<HeroDataContainer>();
         difficultyData = BinaryDateMgr.Instance.GetExcelDataTable<DifficultyDataContainer>();
+        allZombieData = BinaryDateMgr.Instance.GetExcelDataTable<ZombieDataContainer>();
     }
 
     public void SceneLoad(string sceneName)
@@ -54,7 +59,8 @@ public class GameDataMgr
                 heroPos.position,
                 heroPos.rotation
             );
-            PlayerHero.AddComponent<PlayerObj>();
+            HeroData currentHero = allHeroData.dictionary[ChooseHeroIndex];
+            PlayerHero.AddComponent<PlayerObj>().InitAttribute(currentHero);
         }
         else if (scene.name == "BeginScene")
         {
@@ -85,5 +91,14 @@ public class GameDataMgr
         CurrentChooseHeroObj = Object.Instantiate(Resources.Load<GameObject>(CurrentChooseHeroData.res), ChooseHeroPos.position, ChooseHeroPos.rotation);
         //查找玩家拥有的英雄列表是否有这个英雄并返回 bool
         return currentPlayerData.HaveHero.Contains(ChooseHeroIndex);
+    }
+
+    public void PlaySound(string soundName)
+    {
+        GameObject sound = new GameObject();
+        AudioSource clip = sound.AddComponent<AudioSource>();
+        clip.clip = Resources.Load<AudioClip>("Music/" + soundName);
+        clip.Play();
+        Object.Destroy(sound, 3);
     }
 }

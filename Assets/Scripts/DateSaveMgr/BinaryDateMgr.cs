@@ -27,6 +27,7 @@ public class BinaryDateMgr
     {
         LoadExcelData<HeroDataContainer,HeroData>();
         LoadExcelData<DifficultyDataContainer,DifficultyData>();
+        LoadExcelData<ZombieDataContainer,ZombieData>();
     }
     
     /// <summary>
